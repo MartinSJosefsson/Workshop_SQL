@@ -94,15 +94,30 @@ WHERE y.Name = "Yaren"
 #
 #
 # 19: What unique languages are spoken in the countries in the same region as the city named Riga
-SELECT DISTINCT countrylanguage.language
-FROM city
-JOIN country ON city.countrycode = country.Code
-
-
-WHERE city.Name = "Riga"
-;
+SELECT DISTINCT cl.language
+FROM city c
+JOIN country cr ON c.countrycode = cr.Code
+JOIN countrylanguage cl ON c.countrycode = cl.CountryCode
+WHERE cr.Region = (
+SELECT cr2.Region
+FROM City y
+JOIN country cr2 ON y.countrycode = cr2.Code
+WHERE y.Name = "Riga"
+);
 #
-
+#
+#
+SELECT DISTINCT cl.language
+FROM country cr
+JOIN countrylanguage cl ON cr.Code = cl.CountryCode
+WHERE cr.Region = (
+SELECT cr2.Region
+FROM City y
+JOIN country cr2 ON y.countrycode = cr2.Code
+WHERE y.Name = "Riga"
+);
+#
+#
 #
 # 20: Get the name of the most populous city
 SELECT city.Name
