@@ -106,7 +106,6 @@ WHERE y.Name = "Riga"
 );
 #
 #
-#
 SELECT DISTINCT cl.language
 FROM country cr
 JOIN countrylanguage cl ON cr.Code = cl.CountryCode
@@ -116,6 +115,14 @@ FROM City y
 JOIN country cr2 ON y.countrycode = cr2.Code
 WHERE y.Name = "Riga"
 );
+#
+#
+SELECT DISTINCT cl.language
+FROM city AS r
+JOIN country AS rc ON r.countrycode = rc.code
+JOIN country AS c ON c.region = rc.region
+JOIN countrylanguage AS cl ON cl.countrycode = c.code
+WHERE r.name = 'Riga';
 #
 #
 #
